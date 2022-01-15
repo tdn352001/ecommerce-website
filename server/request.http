@@ -1,0 +1,56 @@
+GET http://localhost:5000/
+
+
+###
+
+POST http://localhost:5000/user/login
+Content-Type: application/json
+
+{
+    "email": "admin@gmail.com",
+    "password": "admin352001",
+    "name": "admin@example.com"
+}
+
+
+###
+GET http://localhost:5000/user/refresh_token
+
+
+###
+
+GET http://localhost:5000/user/information
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYxZGRhNGI1MzQwMTA5MDIxZjYzMzQ2MCIsImlhdCI6MTY0MTk5NTE1NiwiZXhwIjoxNjQyMDgxNTU2fQ.mnNisdPy-HPPIKaTrz7QS3gSLArjepTdIGaofIfTaFw
+
+###
+# GET CATEGORY
+GET http://localhost:5000/api/category
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYxZGVlODBlNWViNGM5ODBjODUxNDI2MSIsImlhdCI6MTY0MTk5ODM2OCwiZXhwIjoxNjQyMDg0NzY4fQ.9CoV--C-6SbxfGqGN1g-4TbSqk1pEaGyJWoE0oppnKA
+
+
+###
+# CREATE CATEGORY
+POST http://localhost:5000/api/category
+Content-Type: application/json
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYxZGVlODBlNWViNGM5ODBjODUxNDI2MSIsImlhdCI6MTY0MjI1NjU3OCwiZXhwIjoxNjQyMzQyOTc4fQ.pmvej7WTda782kVzrZP4YdNLlj2luxa8kZ80vAAkWhg
+
+{
+    "name": "Book 2"
+}
+
+
+###
+# UPDATE CATEGORY
+PUT http://localhost:5000/api/category/61dee9ec8883cf372bc8c4e4
+Content-Type: application/json
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYxZGVlODBlNWViNGM5ODBjODUxNDI2MSIsImlhdCI6MTY0MjI1NjU3OCwiZXhwIjoxNjQyMzQyOTc4fQ.pmvej7WTda782kVzrZP4YdNLlj2luxa8kZ80vAAkWhg
+
+{
+    "name": "Book 1"
+}
+
+###
+# DELETE CATEGORY
+DELETE  http://localhost:5000/api/category/61dee9ec8883cf372bc8c4e4
+Content-Type: application/json
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYxZGVlODBlNWViNGM5ODBjODUxNDI2MSIsImlhdCI6MTY0MjI1NjU3OCwiZXhwIjoxNjQyMzQyOTc4fQ.pmvej7WTda782kVzrZP4YdNLlj2luxa8kZ80vAAkWhg
