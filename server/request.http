@@ -2,7 +2,7 @@ GET http://localhost:5000/
 
 
 ###
-
+#  LOGIN
 POST http://localhost:5000/user/login
 Content-Type: application/json
 
@@ -14,11 +14,12 @@ Content-Type: application/json
 
 
 ###
+#  REFRESH TOKEN
 GET http://localhost:5000/user/refresh_token
 
 
 ###
-
+#  GET USER INFO
 GET http://localhost:5000/user/information
 Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYxZGRhNGI1MzQwMTA5MDIxZjYzMzQ2MCIsImlhdCI6MTY0MTk5NTE1NiwiZXhwIjoxNjQyMDgxNTU2fQ.mnNisdPy-HPPIKaTrz7QS3gSLArjepTdIGaofIfTaFw
 
@@ -54,3 +55,56 @@ Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYxZGVlODBlNWViNGM5
 DELETE  http://localhost:5000/api/category/61dee9ec8883cf372bc8c4e4
 Content-Type: application/json
 Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYxZGVlODBlNWViNGM5ODBjODUxNDI2MSIsImlhdCI6MTY0MjI1NjU3OCwiZXhwIjoxNjQyMzQyOTc4fQ.pmvej7WTda782kVzrZP4YdNLlj2luxa8kZ80vAAkWhg
+
+
+###
+#DELETE IMAGE
+POST http://localhost:5000/api/destroy
+Content-Type: application/json
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYxZGVlODBlNWViNGM5ODBjODUxNDI2MSIsImlhdCI6MTY0MjQyNjYyNSwiZXhwIjoxNjQyNTEzMDI1fQ.rhNs83tNHnb87vgnGHvkcJluyEkQnVnBLab36Q6KCL8
+
+{
+    "public_id": "test/axuh49fzu0odxtjuumrz"
+}
+
+
+###
+#  GET PRODUCTS
+GET  http://localhost:5000/api/products/
+
+###
+#  CREATE PRODUCTS
+POST  http://localhost:5000/api/products/
+Content-Type: application/json
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYxZGVlODBlNWViNGM5ODBjODUxNDI2MSIsImlhdCI6MTY0MjUxMDE1MCwiZXhwIjoxNjQyNTk2NTUwfQ.0ziVcN7hUgC9qTVqrKllaPM-4EJ81AW8b0QubSWj1KE
+
+{
+    "product_id": "1",
+    "title": "product 1",
+    "price": 1001,
+    "description": "product 1",
+    "content": "product 1",
+    "images": "product 1",
+    "category": "product 1"
+}
+
+###
+#  UPDATE PRODUCTS
+PUT   http://localhost:5000/api/products/61e67057702d950234fbf08d
+Content-Type: application/json
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYxZGVlODBlNWViNGM5ODBjODUxNDI2MSIsImlhdCI6MTY0MjUxMDE1MCwiZXhwIjoxNjQyNTk2NTUwfQ.0ziVcN7hUgC9qTVqrKllaPM-4EJ81AW8b0QubSWj1KE
+
+{
+    "product_id": "2",
+    "title": "product 2",
+    "price": 1002,
+    "description": "product 2",
+    "content": "product 2",
+    "images": "product 2",
+    "category": "product 2"
+}
+
+
+###
+#  DELETE PRODUCTS
+DELETE    http://localhost:5000/api/products/61e67049702d950234fbf08b
