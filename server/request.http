@@ -95,13 +95,16 @@ Content-Type: application/json
 Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYxZGVlODBlNWViNGM5ODBjODUxNDI2MSIsImlhdCI6MTY0MjUxMDE1MCwiZXhwIjoxNjQyNTk2NTUwfQ.0ziVcN7hUgC9qTVqrKllaPM-4EJ81AW8b0QubSWj1KE
 
 {
-    "product_id": "2",
-    "title": "product 2",
-    "price": 1002,
-    "description": "product 2",
-    "content": "product 2",
-    "images": "product 2",
-    "category": "product 2"
+    "product_id": "1",
+    "title": "product 1",
+    "price": 1001,
+    "description": "product 1",
+    "content": "product 1",
+    "images": {
+        "public_id": "test/zj0xkwdme0poqdffpd8d",
+        "url": "https://res.cloudinary.com/tdn352001/image/upload/v1642580547/test/zj0xkwdme0poqdffpd8d.jpg"
+    },
+    "category": "product 1"
 }
 
 
