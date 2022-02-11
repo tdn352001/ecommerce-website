@@ -1,13 +1,13 @@
 import axios from 'axios';
 import { useEffect, useState } from 'react';
 
-import { apiUrl } from '../contexts/Constants'
+// import { apiUrl } from '../contexts/Constants'
 
 const ProductsAPI = () => {
     const [products, setProducts] = useState([])
 
     const getProducts = async () => {
-        const res = await axios.get(`${apiUrl}/api/products`)
+        const res = await axios.get(`/api/products`)
         setProducts(res.data.products)
     }
 

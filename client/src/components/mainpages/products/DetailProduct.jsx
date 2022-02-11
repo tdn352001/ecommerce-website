@@ -8,9 +8,9 @@ const DetailProduct = () => {
     const params = useParams()
     const state = useContext(GlobalState)
     const [products] = state.productsContext.products
+    const { addCart } = state.userContext.cart
     const [relatedProducts, setRelatedProducts] = useState([])
     const [detailProduct, setDetailProduct] = useState(null)
-
 
     // GET PRODUCT SELECTED FROM PARAMS
     useEffect(() => {
@@ -26,7 +26,7 @@ const DetailProduct = () => {
     // GET RELATED PRODUCTS
 
     useEffect(() => {
-        console.log("Update")
+        console.log('Update')
         if (detailProduct) {
             const relatedProductsList = products.filter(product => product.category === detailProduct.category && product._id !== detailProduct._id)
             setRelatedProducts(relatedProductsList)
@@ -37,10 +37,10 @@ const DetailProduct = () => {
 
     return (
         <>
-            <div className="detail">
-                <img src={detailProduct.images.url} alt="thumbnail" />
-                <div className="box-detail">
-                    <div className="row">
+            <div className='detail'>
+                <img src={detailProduct.images.url} alt='thumbnail' />
+                <div className='box-detail'>
+                    <div className='row'>
                         <h2>{detailProduct.title}</h2>
                         <h6>#id: {detailProduct.product_id}</h6>
                     </div>
@@ -48,14 +48,19 @@ const DetailProduct = () => {
                     <p>{detailProduct.description}</p>
                     <p>{detailProduct.content}</p>
                     <p>Sold: {detailProduct.sold}</p>
-                    <Link className="cart" to='/cart'>Buy Now</Link>
+                    <Link
+                        className='cart'
+                        to='/cart'
+                        onClick={() => addCart(detailProduct)}>
+                        Buy Now
+                    </Link>
                 </div>
             </div>
             {
                 relatedProducts.length > 0 ? (
                     <div>
                         <h2>Related products</h2>
-                        <div className="products">
+                        <div className='products'>
                             {
                                 relatedProducts.map(product => (
                                     <ProductItem product={product} key={product._id} />

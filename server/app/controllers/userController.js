@@ -1,6 +1,6 @@
 const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken')
-const { Users } = require('../models')
+const { Users, Payments } = require('../models')
 const Validations = require('../validations')
 
 
@@ -54,7 +54,7 @@ class UserController {
             await newUser.save()
 
             // Create jsonwebtoken to authentication
-            const acessToken = createAccessToken({ id: newUser._id })
+            const accessToken = createAccessToken({ id: newUser._id })
 
             // create refresh toke 
             const refreshToken = createRefreshToken({ id: newUser._id })
@@ -63,13 +63,14 @@ class UserController {
             res.cookie('refreshToken', refreshToken, {
                 httpOnly: true,
                 path: '/user/refresh_token',
+                maxAge: 7 * 24 * 60 * 60 * 1000
             })
 
             // respont client
             res.status(200).json({
                 success: true,
                 message: 'Register Successfully',
-                acessToken,
+                accessToken,
             })
 
 
@@ -150,7 +151,7 @@ class UserController {
             // Login success
 
             // Create jsonwebtoken to authentication
-            const acessToken = createAccessToken({ id: user._id })
+            const accessToken = createAccessToken({ id: user._id })
 
             // create refresh token 
             const refreshToken = createRefreshToken({ id: user._id })
@@ -159,13 +160,14 @@ class UserController {
             res.cookie('refreshToken', refreshToken, {
                 httpOnly: true,
                 path: '/user/refresh_token',
+                maxAge: 7 * 24 * 60 * 60 * 1000
             })
 
             // respont client
             res.status(200).json({
                 success: true,
                 message: 'Login Successfully',
-                acessToken,
+                accessToken,
             })
 
 
@@ -208,6 +210,48 @@ class UserController {
                 data: user
             })
         } catch (error) {
+            return res.status(500).json({
+                success: false,
+                message: error.message
+            })
+        }
+    }
+
+    async addCart(req, res) {
+        try {
+            const user = await Users.findById(req.user.id)
+
+            if (!user) {
+                return res.status(400).json({
+                    success: false,
+                    message: 'User does not exists.'
+                })
+            }
+
+            await Users.findOneAndUpdate({ _id: user._id }, { cart: req.body.cart })
+
+            return res.json({
+                success: true,
+                message: 'Added to cart.'
+            })
+        }
+        catch (error) {
+            return res.status(500).json({
+                success: false,
+                message: error.message
+            })
+        }
+    }
+
+    async history(req, res) {
+        try {
+            const history = await Payments.find({ user_id: req.user.id })
+            res.json({
+                success: true,
+                history,
+            })
+        }
+        catch (error) {
             return res.status(500).json({
                 success: false,
                 message: error.message

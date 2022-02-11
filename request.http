@@ -2,6 +2,17 @@ GET http://localhost:5000/
 
 
 ###
+#  Register
+POST http://localhost:5000/user/register
+Content-Type: application/json
+
+{
+    "email": "admin@gmail.com",
+    "password": "admin352001",
+    "name": "admin@example.com"
+}
+
+###
 #  LOGIN
 POST http://localhost:5000/user/login
 Content-Type: application/json
@@ -76,15 +87,15 @@ GET  http://localhost:5000/api/products/
 #  CREATE PRODUCTS
 POST  http://localhost:5000/api/products/
 Content-Type: application/json
-Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYxZGVlODBlNWViNGM5ODBjODUxNDI2MSIsImlhdCI6MTY0MjUxMDE1MCwiZXhwIjoxNjQyNTk2NTUwfQ.0ziVcN7hUgC9qTVqrKllaPM-4EJ81AW8b0QubSWj1KE
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYxZGVlODBlNWViNGM5ODBjODUxNDI2MSIsImlhdCI6MTY0MjgxNjYyNCwiZXhwIjoxNjQyOTAzMDI0fQ.LR4bHLIk5Ozlr2LZq-c5LWtxsBcViU8kSjenilbhjR8
 
 {
-    "product_id": "1",
-    "title": "product 1",
+    "product_id": "123",
+    "title": "product thứ n",
     "price": 1001,
-    "description": "product 1",
-    "content": "product 1",
-    "images": "product 1",
+    "description": "product thứ n",
+    "content": "product thứ n",
+    "images": "product thứ n",
     "category": "product 1"
 }
 

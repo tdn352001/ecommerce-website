@@ -17,9 +17,7 @@ class ApiFeatures {
         })
 
         let queryStr = JSON.stringify(queryObject)
-        console.log({ queryStr, queryObject })
         queryStr = queryStr.replace(/\b(gte|gt|lt|lte|regex)\b/g, match => '$' + match)
-        console.log({ queryStr, queryObject })
         this.query.find(JSON.parse(queryStr))
 
         return this
@@ -38,7 +36,7 @@ class ApiFeatures {
 
     paginating() {
         const page = this.queryString.page * 1 || 1
-        const limit = this.queryString.limit * 1 || 4
+        const limit = this.queryString.limit * 1 || 8
         const skip = (page - 1) * limit
         this.query = this.query.skip(skip).limit(limit)
 

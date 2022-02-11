@@ -21,9 +21,26 @@ button {
   cursor: pointer;
 }
 
+.btn__disable {
+  opacity: 0.4;
+  cursor: default;
+}
+
 
 /* ---------- Header ---------- */
 @import url('./Header.css');
 
 /* ---------- Products ---------- */
 @import url('./Products.css');
+
+/* ---------- Login/Register ---------- */
+@import url('./Login.css');
+
+/* ---------- Cart ---------- */
+@import url('./Cart.css');
+
+/* ---------- History ---------- */
+@import url('./History.css');
+
+/* ---------- Category ---------- */
+@import url('./Category.css');
