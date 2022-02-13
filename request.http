@@ -81,7 +81,7 @@ Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYxZGVlODBlNWViNGM5
 
 ###
 #  GET PRODUCTS
-GET  http://localhost:5000/api/products/
+GET  http://localhost:5000/api/products?limit=6&title[regex]=c21
 
 ###
 #  CREATE PRODUCTS

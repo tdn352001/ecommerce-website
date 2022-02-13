@@ -1,4 +1,4 @@
-import React, { useContext } from 'react'
+import React, { useContext, useState } from 'react'
 import { GlobalState } from '../../contexts/GlobalState'
 import { Menu, Close, Cart } from '../../assets/icons'
 import { Link } from 'react-router-dom'
@@ -15,6 +15,7 @@ const Header = () => {
         cart: { cart }
     } = userContext
 
+    const [menu, setMenu] = useState(false)
 
 
     const logoutUser = async () => {
@@ -43,9 +44,15 @@ const Header = () => {
         </>
     )
 
+
+    const toggleMenu = () => setMenu(!menu)
+    const styleMenu = {
+        left: menu ? 0 : '-100%'
+    }
+
     return (
         <header>
-            <div className='menu'>
+            <div className='menu' onClick={toggleMenu}>
                 <img src={Menu} alt='menu' width='30' />
             </div>
 
@@ -55,7 +62,7 @@ const Header = () => {
                 </h1>
             </div>
 
-            <ul>
+            <ul style={styleMenu}>
                 <li><Link to='/'>{isAdmin ? 'Products' : 'Shop'}</Link></li>
                 {
                     isAdmin && adminRouter()
@@ -67,7 +74,7 @@ const Header = () => {
                             <li><Link to='/login'>Login | Register</Link></li>
                         )
                 }
-                <li>
+                <li onClick={toggleMenu}>
                     <img src={Close} alt='close' width='30' className='menu' />
                 </li>
             </ul>

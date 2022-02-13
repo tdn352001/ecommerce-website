@@ -1,21 +1,74 @@
 import axios from 'axios';
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 
 // import { apiUrl } from '../contexts/Constants'
 
 const ProductsAPI = () => {
+    const [gettingProduct, setGettingProduct] = useState(false)
     const [products, setProducts] = useState([])
+    const [callback, setCallback] = useState(false)
+    const [filters, setFilters] = useState({
+        category: '',
+        sort: '',
+        keyWord: '',
+        page: 1,
+        result: 0
+    })
 
-    const getProducts = async () => {
-        const res = await axios.get(`/api/products`)
-        setProducts(res.data.products)
+
+    const getProducts = useCallback(() => {
+        setGettingProduct(true)
+        axios.get(`/api/products?limit=${filters.page * 12}&${filters.category}&${filters.sort}&title[regex]=${filters.keyWord}`)
+            .then(res => {
+                setProducts(res.data.products)
+                setGettingProduct(false)
+                setFilters(prev => ({
+                    ...prev,
+                    result: res.data.result
+                }))
+                return res.data.products
+            })
+
+    }, [filters.category, filters.sort, filters.keyWord, filters.page])
+
+    const deleteProduct = async (id, public_id, token) => {
+        try {
+            await axios.post('/api/destroy', { public_id: public_id },
+                {
+                    headers: { Authorization: token }
+                })
+
+            await axios.delete(`/api/products/${id}`, {
+                headers: { Authorization: token }
+            })
+            getProducts()
+
+            return {
+                message: 'Product deleted'
+            }
+        }
+        catch (error) {
+            return { error }
+        }
     }
 
     useEffect(() => {
         getProducts()
-    }, [])
+    }, [getProducts])
+
     return {
-        products: [products, setProducts]
+        products: {
+            gettingProduct,
+            setGettingProduct,
+            products,
+            setProducts,
+            getProducts,
+            deleteProduct,
+            filters,
+            setFilters,
+            callback,
+            setCallback
+        }
     }
 };
 

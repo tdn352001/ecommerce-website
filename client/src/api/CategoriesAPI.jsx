@@ -8,7 +8,7 @@ const CategoriesAPI = (token) => {
 
     useEffect(() => {
         const getCategories = async () => {
-            const res = await axios.get('api/category', {
+            const res = await axios.get('/api/category', {
                 headers: { Authorization: token }
             })
             console.log(res.data)

@@ -1,24 +1,40 @@
+import axios from 'axios';
 import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
 
 import { GlobalState } from '../../../contexts/GlobalState'
 
 
-const ButtonRender = ({ product }) => {
+const ButtonRender = ({ product, setLoading }) => {
 
-    const { userContext } = useContext(GlobalState)
     const {
-        admin: { isAdmin },
-        cart: { addCart }
-    } = userContext
+        userContext: {
+            admin: { isAdmin },
+            cart: { addCart }
+        },
+        token: [token],
+        productsContext: {
+            products: { deleteProduct }
+        }
+    } = useContext(GlobalState)
 
+
+
+    const handleDeleteProduct = async (e) => {
+        e.preventDefault()
+        if (window.confirm('Are you sure you want to delete this product?')) {
+            setLoading(true)
+            await deleteProduct(product._id, product.images.public_id, token)
+            setLoading(false)
+        }
+    }
 
     return (
         <div className='row_btn'>
             {
                 isAdmin ? (
                     <>
-                        <Link className='btn_buy' to='#!'>
+                        <Link className='btn_buy' to='#!' onClick={handleDeleteProduct}>
                             Delete
                         </Link>
 

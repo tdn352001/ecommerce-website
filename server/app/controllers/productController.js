@@ -17,8 +17,11 @@ class ApiFeatures {
         })
 
         let queryStr = JSON.stringify(queryObject)
+        console.log(queryStr)
         queryStr = queryStr.replace(/\b(gte|gt|lt|lte|regex)\b/g, match => '$' + match)
+        console.log(queryStr)
         this.query.find(JSON.parse(queryStr))
+        console.log(this)
 
         return this
     }

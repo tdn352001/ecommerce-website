@@ -7,7 +7,7 @@ import ProductItem from './ProductItem'
 const DetailProduct = () => {
     const params = useParams()
     const state = useContext(GlobalState)
-    const [products] = state.productsContext.products
+    const { products } = state.productsContext.products
     const { addCart } = state.userContext.cart
     const [relatedProducts, setRelatedProducts] = useState([])
     const [detailProduct, setDetailProduct] = useState(null)

@@ -62,6 +62,12 @@ const Pages = () => {
                     (<NotFound />)
             } />
 
+            <Route path='/edit_product/:id' element={
+                isAdmin ?
+                    (<CreateProduct />) :
+                    (<NotFound />)
+            } />
+
             <Route path='/cart' element={<Cart />} />
             <Route path='*' element={<NotFound />} />
         </Routes>

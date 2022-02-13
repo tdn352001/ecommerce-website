@@ -1,5 +1,6 @@
-import React, { useState, useContext } from 'react'
+import React, { useState, useContext, useEffect } from 'react'
 import axios from 'axios'
+import { useNavigate, useParams } from "react-router-dom"
 
 import { GlobalState } from '../../../contexts/GlobalState'
 import Loading from '../utils/loading/Loading'
@@ -17,6 +18,13 @@ const initialProductState = {
 const CreateProduct = () => {
 
     const {
+        productsContext: {
+            products: {
+                products,
+                setProducts,
+                getProducts
+            }
+        },
         categoryContext: {
             category: { categories }
         },
@@ -30,6 +38,8 @@ const CreateProduct = () => {
     const [product, setProduct] = useState(initialProductState)
     const [images, setImages] = useState(false)
     const [loading, setLoading] = useState(false)
+    const navigate = useNavigate()
+    const params = useParams()
 
     const styleUpload = {
         display: images ? 'block' : 'none',
@@ -61,7 +71,7 @@ const CreateProduct = () => {
 
             setLoading(true)
 
-            const res = await axios.post('api/upload', formData, {
+            const res = await axios.post('/api/upload', formData, {
                 headers: {
                     'content-type': 'multipart/form-data',
                     Authorization: token
@@ -83,15 +93,16 @@ const CreateProduct = () => {
             }
 
             setLoading(true)
-            const res = await axios.post('api/destroy', { public_id: images.public_id }, {
+            await axios.post('/api/destroy', { public_id: images.public_id }, {
                 headers: { Authorization: token }
             })
-            console.log(res.data)
             setLoading(false)
             setImages(false)
         }
         catch (error) {
             alert(error.response.data.message)
+            console.log({ error })
+            setLoading(false)
         }
     }
 
@@ -101,6 +112,66 @@ const CreateProduct = () => {
             [e.target.name]: e.target.value
         })
     }
+
+    const handleSubmit = async (e) => {
+        e.preventDefault()
+
+        try {
+            if (!isAdmin) {
+                return alert("You're not an admin")
+            }
+
+            if (!images) {
+                return alert("No image upload")
+            }
+
+            if (product._id) {
+                await axios.put(`/api/products/${product._id}`, {
+                    ...product,
+                    images,
+                }, {
+                    headers: { Authorization: token }
+                })
+            }
+            else {
+                await axios.post('/api/products', {
+                    ...product,
+                    images,
+                }, {
+                    headers: { Authorization: token }
+                })
+
+            }
+
+
+            setImages(false)
+            setProduct(initialProductState)
+            await getProducts()
+            navigate('/')
+
+        }
+        catch (error) {
+            alert(error.response.data.message)
+        }
+    }
+
+
+    useEffect(() => {
+        if (params.id) {
+            products.forEach(item => {
+                if (item._id === params.id) {
+                    setProduct(item)
+                    setImages(item.images)
+                    return
+                }
+            })
+        }
+        else {
+            setProduct(initialProductState)
+            setImages(false)
+        }
+    }, [params.id, products])
+
     return (
         <div className='create_product'>
             <div className='upload'>
@@ -119,11 +190,11 @@ const CreateProduct = () => {
                 </div>
             </div>
 
-            <form>
+            <form onSubmit={handleSubmit}>
                 <div className='row'>
                     <label htmlFor='product_id'>Product ID</label>
                     <input type='text' name='product_id' id='product_id' required
-                        value={product.product_id} onChange={handleChangeInput}
+                        value={product.product_id} onChange={handleChangeInput} disabled={product._id}
                     />
                 </div>
 
@@ -168,7 +239,7 @@ const CreateProduct = () => {
                         }
                     </select>
                 </div>
-                <button type='submit'>Create</button>
+                <button type='submit'>{product._id ? 'Update' : 'Create'}</button>
 
             </form>
         </div>
