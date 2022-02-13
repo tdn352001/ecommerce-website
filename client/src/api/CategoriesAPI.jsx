@@ -1,6 +1,7 @@
 
 import { useEffect, useState } from 'react'
 import axios from 'axios'
+import { apiUrl } from '../contexts/Constants'
 
 const CategoriesAPI = (token) => {
     const [categories, setCategories] = useState([])
@@ -8,7 +9,7 @@ const CategoriesAPI = (token) => {
 
     useEffect(() => {
         const getCategories = async () => {
-            const res = await axios.get('/api/category', {
+            const res = await axios.get(`${apiUrl}/api/category`, {
                 headers: { Authorization: token }
             })
             console.log(res.data)

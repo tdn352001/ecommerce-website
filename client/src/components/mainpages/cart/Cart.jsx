@@ -3,6 +3,7 @@ import axios from 'axios'
 
 import { GlobalState } from '../../../contexts/GlobalState'
 import PaypalButton from './PayPal'
+import { apiUrl } from '../../../contexts/Constants'
 
 
 const Cart = () => {
@@ -18,7 +19,7 @@ const Cart = () => {
 
 
     const addToCart = async (cart) => {
-        axios.patch('user/addcart', { cart }, {
+        axios.patch(`${apiUrl}/user/addcart`, { cart }, {
             headers: { Authorization: token }
         })
     }
@@ -61,7 +62,7 @@ const Cart = () => {
 
     const tranSuccess = async (payment) => {
         const { paymentID, address } = payment
-        await axios.post('/api/payment', { cart, paymentID, address }, {
+        await axios.post(`${apiUrl}/api/payment`, { cart, paymentID, address }, {
             headers: { Authorization: token }
         })
 

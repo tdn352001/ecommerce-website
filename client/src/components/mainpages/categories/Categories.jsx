@@ -2,6 +2,7 @@ import axios from 'axios'
 import React, { useContext, useState } from 'react'
 
 import { GlobalState } from '../../../contexts/GlobalState'
+import { apiUrl } from '../../../contexts/Constants'
 
 const Categories = () => {
 
@@ -18,7 +19,7 @@ const Categories = () => {
         e.preventDefault()
         try {
             if (onEdit) {
-                await axios.put(`/api/category/${id}`, { name: category }, {
+                await axios.put(`${apiUrl}/api/category/${id}`, { name: category }, {
                     headers: { Authorization: token }
                 })
                 const updatedCategories = categories.map(item => {
@@ -32,7 +33,7 @@ const Categories = () => {
                 setOnEdit(false)
             }
             else {
-                const res = await axios.post('/api/category', { name: category }, {
+                const res = await axios.post(`${apiUrl}/api/category`, { name: category }, {
                     headers: { Authorization: token }
                 })
                 const newCategory = res.data.category
@@ -56,7 +57,7 @@ const Categories = () => {
     const deleteCategory = async (id) => {
         try {
             if (window.confirm('Are you sure you want to delete this category?')) {
-                await axios.delete(`/api/category/${id}`, {
+                await axios.delete(`${apiUrl}/api/category/${id}`, {
                     headers: { Authorization: token }
                 })
                 const updatedCategories = categories.filter(item => item._id !== id)

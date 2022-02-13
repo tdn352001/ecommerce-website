@@ -3,7 +3,7 @@ import { GlobalState } from '../../contexts/GlobalState'
 import { Menu, Close, Cart } from '../../assets/icons'
 import { Link } from 'react-router-dom'
 import axios from 'axios'
-
+import { apiUrl } from '../../contexts/Constants'
 
 
 const Header = () => {
@@ -20,7 +20,7 @@ const Header = () => {
 
     const logoutUser = async () => {
         try {
-            await axios.get('/user/logout')
+            await axios.get(`${apiUrl}/user/logout`)
             localStorage.removeItem('firstLogin')
             window.location.href = '/'
         }

@@ -1,2 +1,2 @@
 export const apiUrl = process.env.NODE_ENV !== 'production'
-    ? 'http://localhost:5000' : 'http://localhost:5000'
+    ? 'https://ecommerce-basic-by-tdn352001.herokuapp.com' : 'https://ecommerce-basic-by-tdn352001.herokuapp.com'

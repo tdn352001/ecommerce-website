@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import axios from 'axios'
 
 import { GlobalState } from '../../../contexts/GlobalState'
+import { apiUrl } from '../../../contexts/Constants'
 
 const OrderHistory = () => {
 
@@ -15,12 +16,12 @@ const OrderHistory = () => {
             const getHistory = async () => {
                 try {
                     if (isAdmin) {
-                        const res = await axios.get('/api/payment', {
+                        const res = await axios.get(`${apiUrl}/api/payment`, {
                             headers: { Authorization: token }
                         })
                         setHistory(res.data.payments)
                     } else {
-                        const res = await axios.get('/user/history', {
+                        const res = await axios.get(`${apiUrl}/user/history`, {
                             headers: { Authorization: token }
                         })
                         setHistory(res.data.history)

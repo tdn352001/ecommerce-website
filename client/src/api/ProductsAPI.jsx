@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { useCallback, useEffect, useState } from 'react';
 
-// import { apiUrl } from '../contexts/Constants'
+import { apiUrl } from '../contexts/Constants'
 
 const ProductsAPI = () => {
     const [gettingProduct, setGettingProduct] = useState(false)
@@ -18,7 +18,7 @@ const ProductsAPI = () => {
 
     const getProducts = useCallback(() => {
         setGettingProduct(true)
-        axios.get(`/api/products?limit=${filters.page * 12}&${filters.category}&${filters.sort}&title[regex]=${filters.keyWord}`)
+        axios.get(`${apiUrl}/api/products?limit=${filters.page * 12}&${filters.category}&${filters.sort}&title[regex]=${filters.keyWord}`)
             .then(res => {
                 setProducts(res.data.products)
                 setGettingProduct(false)
@@ -33,12 +33,12 @@ const ProductsAPI = () => {
 
     const deleteProduct = async (id, public_id, token) => {
         try {
-            await axios.post('/api/destroy', { public_id: public_id },
+            await axios.post(`${apiUrl}/api/destroy`, { public_id: public_id },
                 {
                     headers: { Authorization: token }
                 })
 
-            await axios.delete(`/api/products/${id}`, {
+            await axios.delete(`${apiUrl}/api/products/${id}`, {
                 headers: { Authorization: token }
             })
             getProducts()

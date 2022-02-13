@@ -4,6 +4,7 @@ import { useNavigate, useParams } from "react-router-dom"
 
 import { GlobalState } from '../../../contexts/GlobalState'
 import Loading from '../utils/loading/Loading'
+import { apiUrl } from '../../../contexts/Constants'
 
 
 const initialProductState = {
@@ -21,7 +22,6 @@ const CreateProduct = () => {
         productsContext: {
             products: {
                 products,
-                setProducts,
                 getProducts
             }
         },
@@ -71,7 +71,7 @@ const CreateProduct = () => {
 
             setLoading(true)
 
-            const res = await axios.post('/api/upload', formData, {
+            const res = await axios.post(`${apiUrl}/api/upload`, formData, {
                 headers: {
                     'content-type': 'multipart/form-data',
                     Authorization: token
@@ -93,7 +93,7 @@ const CreateProduct = () => {
             }
 
             setLoading(true)
-            await axios.post('/api/destroy', { public_id: images.public_id }, {
+            await axios.post(`${apiUrl}/api/destroy`, { public_id: images.public_id }, {
                 headers: { Authorization: token }
             })
             setLoading(false)
@@ -126,7 +126,7 @@ const CreateProduct = () => {
             }
 
             if (product._id) {
-                await axios.put(`/api/products/${product._id}`, {
+                await axios.put(`${apiUrl}/api/products/${product._id}`, {
                     ...product,
                     images,
                 }, {
@@ -134,7 +134,7 @@ const CreateProduct = () => {
                 })
             }
             else {
-                await axios.post('/api/products', {
+                await axios.post(`${apiUrl}/api/products`, {
                     ...product,
                     images,
                 }, {

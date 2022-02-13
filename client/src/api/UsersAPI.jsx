@@ -1,5 +1,6 @@
 import axios from 'axios';
 import { useEffect, useState } from 'react'
+import { apiUrl } from '../contexts/Constants'
 
 const UsersAPI = (token) => {
 
@@ -27,7 +28,7 @@ const UsersAPI = (token) => {
             newCart.push({ ...product, quantity: 1 })
         }
         setCart(newCart)
-        await axios.patch('/user/addcart', { cart: newCart }, {
+        await axios.patch(`${apiUrl}/user/addcart`, { cart: newCart }, {
             headers: { Authorization: token }
         })
         alert('Product added to cart.')
@@ -37,7 +38,7 @@ const UsersAPI = (token) => {
         if (token) {
             const getUser = async () => {
                 try {
-                    const res = await axios.get('/user/information', {
+                    const res = await axios.get(`${apiUrl}/user/information`, {
                         headers: { Authorization: token }
                     })
                     setIsLogged(true)
