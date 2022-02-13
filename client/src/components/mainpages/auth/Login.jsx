@@ -23,7 +23,7 @@ const Login = () => {
             const res = await axios.post(`${apiUrl}/user/login`, user)
             console.log(res.data)
             localStorage.setItem('firstLogin', true)
-            // window.location.href = '/'
+            window.location.href = '/'
         }
         catch (error) {
             alert(error.response.data.message)

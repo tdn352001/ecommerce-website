@@ -20,6 +20,7 @@ export const DataProvider = ({ children }) => {
                 try {
                     const res = await axios.get(`${apiUrl}/user/refresh_token`)
                     setToken(res.data.accessToken)
+                    window.location.href = '/'
                 }
                 catch (error) {
                     console.log(error.response.data)
